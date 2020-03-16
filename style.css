@@ -1,0 +1,7 @@
+.float-left {
+    margin:30px;
+}
+.float-right, a {
+    margin: 30px;
+    color: purple;
+}
