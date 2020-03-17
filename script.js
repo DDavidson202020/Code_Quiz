@@ -46,24 +46,7 @@ let questions = [
     },
   ];
 
-  //Create all the elements and hook into javascript for questions and answers
-  
-  
-  let score = 0;
-  let index = 0;
-  let secondsLeft = 60;
-  
-
-  function generateQuiz() {
-    event.preventDefault();
-    setTimer();
-    h1.textContent = "";
-    p.textContent = "";
-    divTag.textContent = "";
-    button.textContent="";
-   
-
-    let divContainer = document.createElement("div");
+  let divContainer = document.createElement("div");
     let divQuestion = document.createElement("div");
     let button1 = document.createElement("button");
     let button2 = document.createElement("button");
@@ -78,30 +61,52 @@ let questions = [
     button2.setAttribute("style", "display: flex; padding: 5px; margin: 5px; background-color: purple; color: white; border-radius: 6px;");
     button3.setAttribute("style", "display: flex; padding: 5px; margin: 5px; background-color: purple; color: white; border-radius: 6px;");
     button4.setAttribute("style", "display: flex; padding: 5px; margin: 5px; background-color: purple; color: white; border-radius: 6px;");
-    
+    resultText.setAttribute("style", "text-align: center; font-size: 20px;")
     button1.classList = "choiceBtn"
     button2.classList = "choiceBtn"
     button3.classList = "choiceBtn"
     button4.classList = "choiceBtn"
     let choiceBtn = document.querySelector(".choiceBtn");
 
-    
-        divQuestion.textContent = questions[index].title;
-        button1.textContent = questions[index].choices[0];
-        button2.textContent = questions[index].choices[1];
-        button3.textContent = questions[index].choices[2];
-        button4.textContent = questions[index].choices[3];
+
+  //Create all the elements and hook into javascript for questions and answers
+  
+  
+  //let score = 0;
+  let index = 0;
+  let secondsLeft = 60;
+  
+
+  function generateQuiz() {
+    event.preventDefault();
+    setTimer();
+    h1.textContent = "";
+    p.textContent = "";
+    divTag.textContent = "";
+    button.textContent="";
+
+    divQuestion.textContent = questions[index].title;
+    button1.textContent = questions[index].choices[0];
+    button2.textContent = questions[index].choices[1];
+    button3.textContent = questions[index].choices[2];
+    button4.textContent = questions[index].choices[3];
+
+    button1.value = questions[index].choices[0]; 
+    button2.value = questions[index].choices[1]; 
+    button3.value = questions[index].choices[2]; 
+    button4.value = questions[index].choices[3]; 
+
         
-        document.body.appendChild(divContainer);
-        document.body.appendChild(resultText);
-        divContainer.appendChild(divQuestion);
-        divContainer.appendChild(button1);
-        divContainer.appendChild(button2);
-        divContainer.appendChild(button3);
-        divContainer.appendChild(button4);
+    document.body.appendChild(divContainer);
+    document.body.appendChild(resultText);
+    divContainer.appendChild(divQuestion);
+    divContainer.appendChild(button1);
+    divContainer.appendChild(button2);
+    divContainer.appendChild(button3);
+    divContainer.appendChild(button4);
         
 
-
+  }
   
     document.addEventListener("click", function (event) {
         //Don't refresh the page
@@ -113,32 +118,73 @@ let questions = [
           if (answerValue === questions[index].answer) {
             resultText.textContent = "Correct";
             index++;
-            generateQuiz()
-            divContainer.textContent = "";
+            if (index > 4) {
+              showResults();
+            } else {
+            generateQuiz();
+            }
           } else {
             resultText.textContent = "Wrong";
             index++;
             secondsLeft -= 10;
+            if (index > 4) {
+              showResults();
+            } else {
             generateQuiz();
-            divContainer.textContent = "";
-    
+            }
           }
         }
     })
 
-  }
-
+  
+  
   function setTimer() {
     var timerInterval = setInterval(function() {
         secondsLeft--;
         timer.textContent = "Time: " + secondsLeft;
     
-        if(secondsLeft < 0) {
+        if(secondsLeft < 0 || index > 4) {
           clearInterval(timerInterval);
+        
         }
     
       }, 1000);
    
 } 
+
+function showResults() {
+  event.preventDefault();
+  divContainer.textContent = "Quiz Done, Your Score is: " + secondsLeft;
+  resultText.setAttribute("style","display:none;");
+  divContainer.setAttribute("style", "font-size: 30px; font-weight:bold; text-align: center;")
+  var div1 = document.createElement("div")
+  var name = document.createElement("label");
+  var input = document.createElement("input")
+  var submit = document.createElement("button");
+  
+  name.textContent = "Your name";
+
+  submit.textContent = "Submit";
+  divContainer.appendChild(div1);
+  div1.appendChild(name);
+  div1.appendChild(input);
+  div1.appendChild(submit);
+  name.setAttribute("style","font-size: 20px; margin-right: 10px;");
+  submit.setAttribute("style", "background-color: purple; margin-left:10px; color: white;")
+  div1.setAttribute("style", "margin-top: 20px;");
+  submit.addEventListener("click",function() {
+    
+    localStorage.setItem("score", secondsLeft);
+  
+    window.location.assign("index.html");
+    
+  }); 
+ 
+  
+  
+  document.body.appendChild(divContainer);
+
+}
+
     
 button.addEventListener("click",generateQuiz);

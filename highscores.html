@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>High Scores</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class ="center">
+        <h2 class = "noName">Your last high score: <span id = "score"></span></h2>
+        
+    
+    
+        <a href ="index.html"><button class = "noName2">Go Back</button></a>
+    </div>
+
+    <script>
+        var score1 = document.getElementById("score");
+        var number = localStorage.getItem("score");
+        score1.textContent = number;
+    
+    
+    </script>
+</body>
+</html>
