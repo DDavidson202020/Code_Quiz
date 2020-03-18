@@ -1,3 +1,4 @@
+//Create and hook html elements
 let timer = document.getElementById("timer");
 let divTag = document.createElement("div");
 let h1 = document.createElement("h1");
@@ -45,8 +46,8 @@ let questions = [
       answer: "1. The World Wide Web Consortium"
     },
   ];
-
-  let divContainer = document.createElement("div");
+  // Create more html elements for the questions and answer choices 
+    let divContainer = document.createElement("div");
     let divQuestion = document.createElement("div");
     let button1 = document.createElement("button");
     let button2 = document.createElement("button");
@@ -62,29 +63,26 @@ let questions = [
     button3.setAttribute("style", "display: flex; padding: 5px; margin: 5px; background-color: purple; color: white; border-radius: 6px;");
     button4.setAttribute("style", "display: flex; padding: 5px; margin: 5px; background-color: purple; color: white; border-radius: 6px;");
     resultText.setAttribute("style", "text-align: center; font-size: 20px;")
+    // Set class attribute choiceBtn for all the buttons
     button1.classList = "choiceBtn"
     button2.classList = "choiceBtn"
     button3.classList = "choiceBtn"
     button4.classList = "choiceBtn"
     let choiceBtn = document.querySelector(".choiceBtn");
-
-
-  //Create all the elements and hook into javascript for questions and answers
-  
-  
-  //let score = 0;
+  // Declare some variables
   let index = 0;
   let secondsLeft = 60;
-  
-
+  // Create a function that generate one question at a time
   function generateQuiz() {
+    //Don't refresh the page
     event.preventDefault();
+    // Call the setTimer function
     setTimer();
     h1.textContent = "";
     p.textContent = "";
     divTag.textContent = "";
     button.textContent="";
-
+    // Show questions and answer choices one at a time
     divQuestion.textContent = questions[index].title;
     button1.textContent = questions[index].choices[0];
     button2.textContent = questions[index].choices[1];
@@ -95,8 +93,7 @@ let questions = [
     button2.value = questions[index].choices[1]; 
     button3.value = questions[index].choices[2]; 
     button4.value = questions[index].choices[3]; 
-
-        
+    
     document.body.appendChild(divContainer);
     document.body.appendChild(resultText);
     divContainer.appendChild(divQuestion);
@@ -104,15 +101,10 @@ let questions = [
     divContainer.appendChild(button2);
     divContainer.appendChild(button3);
     divContainer.appendChild(button4);
-        
-
   }
   
-    document.addEventListener("click", function (event) {
-        //Don't refresh the page
-        event.preventDefault();
-        
-        //if matching a button then create a element on the page that say Wrong or Correct 
+  document.addEventListener("click", function (event) {
+    //if matching a button then create a element on the page that say Wrong or Correct 
         if (event.target.matches(".choiceBtn")) {
           let answerValue = event.target.value;
           if (answerValue === questions[index].answer) {
@@ -135,9 +127,7 @@ let questions = [
           }
         }
     })
-
-  
-  
+    // Set the time to go down 
   function setTimer() {
     var timerInterval = setInterval(function() {
         secondsLeft--;
@@ -149,12 +139,11 @@ let questions = [
         }
     
       }, 1000);
-   
-} 
+  } 
 
 function showResults() {
   event.preventDefault();
-  divContainer.textContent = "Quiz Done, Your Score is: " + secondsLeft;
+  divContainer.textContent = "Quiz Done, Your Score is the amount of time left on the top right of the screen!";
   resultText.setAttribute("style","display:none;");
   divContainer.setAttribute("style", "font-size: 30px; font-weight:bold; text-align: center;")
   var div1 = document.createElement("div")
@@ -173,18 +162,20 @@ function showResults() {
   submit.setAttribute("style", "background-color: purple; margin-left:10px; color: white;")
   div1.setAttribute("style", "margin-top: 20px;");
   submit.addEventListener("click",function() {
-    
-    localStorage.setItem("score", secondsLeft);
-  
+    // make an object to save to local storage
+    var userHighScore = {};
+    //get their name
+    var userName = input.value;
+    // get the  score
+    //build the object and stringify it
+    userHighScore.name = userName;
+    userHighScore.score = secondsLeft;
+    //stringify the object before we store it in the DB
+    const DBString = JSON.stringify(userHighScore)
+    localStorage.setItem("score", DBString);
     window.location.assign("index.html");
-    
   }); 
- 
-  
-  
-  document.body.appendChild(divContainer);
-
+ document.body.appendChild(divContainer);
 }
-
-    
+// Set a click to start the question
 button.addEventListener("click",generateQuiz);

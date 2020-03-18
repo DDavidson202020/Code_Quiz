@@ -8,18 +8,21 @@
 </head>
 <body>
     <div class ="center">
-        <h2 class = "noName">Your last high score: <span id = "score"></span></h2>
-        
+        <h2 class = "noName">Your last high score</h2> 
+    
+        <p>Score: <span id ="myscore"></span></p>
     
     
         <a href ="index.html"><button class = "noName2">Go Back</button></a>
     </div>
 
     <script>
-        var score1 = document.getElementById("score");
-        var number = localStorage.getItem("score");
-        score1.textContent = number;
-    
+
+        var myscore = document.getElementById("myscore")
+        var userscore = localStorage.getItem("score");
+        myscore.textContent = userscore;
+        myscore.setAttribute("style","font-size:20px;")
+        
     
     </script>
 </body>
