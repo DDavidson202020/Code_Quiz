@@ -6,7 +6,7 @@ let p = document.createElement("p");
 let button = document.createElement("button");
 //Add text content to all the elements we just created
 h1.textContent = "Code Quiz Challenge";
-p.textContent = "Try to answer these coding questions within 70 seconds, you lose 10 seconds for every wrong answer you have, click on the Start button when you're ready";
+p.textContent = "Try to answer these coding questions within 60 seconds, you lose 10 seconds for every wrong answer you have, click on the Start button when you're ready";
 button.textContent = "Start Quiz";
 //Put them on the page
 document.body.appendChild(h1);
@@ -143,9 +143,9 @@ let questions = [
 
 function showResults() {
   event.preventDefault();
-  divContainer.textContent = "Quiz Done, Your Score is the amount of time left on the top right of the screen!";
+  divContainer.textContent = "Quiz Done, Your Score is the amount of time left on the top right of the screen! Enter your name and click the Submit button to have your name and score saved and go back to the start quiz page.";
   resultText.setAttribute("style","display:none;");
-  divContainer.setAttribute("style", "font-size: 30px; font-weight:bold; text-align: center;")
+  divContainer.setAttribute("style", "font-size: 30px; text-align:center; color: purple;")
   var div1 = document.createElement("div")
   var name = document.createElement("label");
   var input = document.createElement("input")

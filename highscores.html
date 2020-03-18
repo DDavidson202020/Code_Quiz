@@ -9,21 +9,19 @@
 <body>
     <div class ="center">
         <h2 class = "noName">Your last high score</h2> 
-    
-        <p>Score: <span id ="myscore"></span></p>
+        <p>Your name: <span id = "myname"></span></p>
+        <p>Your score: <span id ="myscore"></span></p>
     
     
         <a href ="index.html"><button class = "noName2">Go Back</button></a>
     </div>
 
     <script>
-
+        var myname = document.getElementById("myname");
         var myscore = document.getElementById("myscore")
-        var userscore = localStorage.getItem("score");
-        myscore.textContent = userscore;
-        myscore.setAttribute("style","font-size:20px;")
-        
-    
+        var userscore = JSON.parse(localStorage.getItem("score"));
+        myscore.textContent = userscore.score;
+        myname.textContent = userscore.name;
     </script>
 </body>
 </html>
